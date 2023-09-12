@@ -118,4 +118,8 @@ The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses 
 
  It then uses the CDO terraform provider to onboard this deployed ASA to CDO.
 
+### An ASA and SDC Resource in CDO
 
+We create ASA and SDC resources in CDO.
+- The SDC resource in CDO is created before the SDC in AWS is created, and SDC in AWS receives the CDO bootstrap data from the SDC resource created. Important note: the bootstrap data is valid only for an hour after creation, so make sure you spin up  your SDC in AWS within an hour after creating the CDO resource.
+- The ASA resource in CDO is created after the ASA in CDO is spun up.
