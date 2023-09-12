@@ -13,10 +13,7 @@ To use this example, you need the following:
 1. A POSIX compliant system like MacOS, Linux, or the Windows Subsystem for Linux.
 1. Terraform: This example uses v1.3.
 1. Super-admin access to a CDO tenant.
-1. [Optional] An AWS account to automatically spin up an virtual form-factor Adaptive Security Appliance (ASAv) and a Secure Device Connector (SDC). 
-    1. If you do not wish to use this, see step 3 below to learn how to disable this part of the example code.
-1. [Optional] Administrator access to a vSphere account to spin up an On-Prem SDC.
-    1. If you do not want to use CDO’s Terraform Module to spin up an On-Prem SDC, see step 3 below to learn how to disable this part of the example code.
+1. An AWS account to automatically spin up an virtual form-factor Adaptive Security Appliance (ASAv) and a Secure Device Connector (SDC). 
 
 Then, you can clone the example repository from the [CDO Devnet repository](https://github.com/ciscodevnet/terraform-provider-cdo) using Git, and then change your working directory to `examples/complete`.
 
@@ -38,21 +35,15 @@ If you want to have the CDO example provider create a sample AWS VPC and subnet 
 ## Step 3: Update the variables for your environment
 
 In order to be able to use the CDO Terraform Provider, you need to set a bunch of variables that tell the example about your environment. This can be set by performing the following steps:
-- Copy the `terraform_env_vars.sh.sample` file to `terraform_env_vars.sh`:
+- Copy the `terraform.tfvars.sample` file to `terraform.tfvars`:
 ```
-cp terraform_env_vars.sh.sample terraform_env_vars.sh1
+cp terraform.tfvars.sample terraform.tfvars
 ```
-- Edit `terraform_env_vars.sh` and set the values as appropriate. There are three sections in `terraform_env_vars.sh`:
-  - The `[Mandatory] CDO` section, where you set the CDO Base URL and API token so that the Terraform can communicate with CDO.
-  - The `[Optional] AWS` section; set the values in this section if you want the example code to create resources (an ASAv and an SDC) in AWS. Delete those entries if you do want the example code to create resources in AWS.
-  - The `[Optional] vSphere` section; set the values in this section if you want the example code to create resources (an SDC) in vSphere. Delete those entries if you do want the example code to create resources in vSphere.
+- Edit `terraform.tfvars` and set the values as appropriate. There are two sections in `terraform.tfvars`:
+  - The `CDO` section, where you set the CDO Base URL and API token so that the Terraform can communicate with CDO.
+  - The `AWS` section; set the values in this section if you want the example code to create resources (an ASAv and an SDC) in AWS.
 
 ## Step 4: Run Terraform
-
-- Source the values in `terraform_env_vars.sh`:
-```
-source ./terraform_env_vars.sh
-```
 
 - Initialise the modules by running
 ```
@@ -78,7 +69,6 @@ terraform destroy
 ## Resources Created: An Explainer
 
 ### An AWS VPC with two subnets
-*Note*: This is created only if you set the variable `create_resources_in_aws` to `true`.
 
 In order to allow for the deployment of CDO resources to your AWS account, the Terraform mcode in the `modules/aws_vpc` folder creates the following:
 1. An AWS VPC in the `us-east-1` AWS region.
@@ -96,7 +86,6 @@ The Terraform code creates a list of users that can use your CDO tenant. You can
 
 ### A Secure Device Connector in AWS
 
-*Note*: This is created only if you set the variable `create_resources_in_aws` to `true`.
 
 The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses the [AWS cdo-sdc](https://registry.terraform.io/modules/CiscoDevNet/cdo-sdc/aws/latest) Terraform module to create an SDC instance in the private subnet of the AWS VPC you created, and initialize it using the bootstrap data for the created SDC. Once this part of the code runs, you can verify this in CDO as follows:
  1. Log into your tenant in CDO using a web browser.
@@ -106,8 +95,6 @@ The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses 
  ![Secure Connectors](./images/secure-connectors.png "Secure Connectors")
 
  ### A virtual ASA in AWS
-
- *Note*: This is created only if you set the variable `create_resources_in_aws` to `true`.
 
  The code uses the `asav` module in `modules/asav` to create an ASAv in your AWS VPC. The ASAv deployed has three interfaces:
  -  An inside interface, in the private subnet.
