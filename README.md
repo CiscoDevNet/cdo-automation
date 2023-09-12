@@ -14,6 +14,10 @@ To use this example, you need the following:
 1. Terraform: This example uses v1.3.
 1. Super-admin access to a CDO tenant.
 1. An AWS account to automatically spin up an virtual form-factor Adaptive Security Appliance (ASAv) and a Secure Device Connector (SDC). 
+  1. The credentials used should allow you permissions to create VPCs, subnets, route tables, network interfaces, and EC2 instances.
+  1. 
+1. [Optional] A vSphere administrative account to automatically spin up an SDC on your vSphere:
+  1. The account used has to have administrative access 
 
 Then, you can clone the example repository from the [CDO Devnet repository](https://github.com/ciscodevnet/terraform-provider-cdo) using Git, and then change your working directory to `examples/complete`.
 
