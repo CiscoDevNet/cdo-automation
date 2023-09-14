@@ -1,7 +1,13 @@
 terraform {
   required_providers {
     cdo = {
-      source = "CiscoDevnet/cdo"
+      source  = "CiscoDevnet/cdo"
+      version = "0.6.1"
+    }
+
+    fmc = {
+      source = "CiscoDevNet/fmc"
+      version = "1.4.0"
     }
 
     # OPTIONAL: comment this out if you do not want to use Terraform to spin up an SDC in vSphere
@@ -29,14 +35,24 @@ provider "cdo" {
   api_token = var.cdo_api_token
 }
 
-# OPTIONAL: comment this out if you do not want to use Terraform to spin up an SDC and ASAv in AWS
+data "cdo_cdfmc" "current" {
+}
+
+provider "fmc" {
+  fmc_host = data.cdo_cdfmc.current.hostname
+  is_cdfmc = true
+  cdo_token = var.cdo_api_token
+  cdfmc_domain_uuid = data.cdo_cdfmc.current.domain_uuid
+}
+
+# uncomment this out if you do not want to use Terraform to spin up an SDC and ASAv in vSphere
 provider "vsphere" {
   user           = var.vsphere_username
   password       = var.vsphere_password
   vsphere_server = var.vsphere_server
 
   # if you have a self-signed cert
-  allow_unverified_ssl = true
+  allow_unverified_ssl = var.allow_unverified_ssl
 }
 
 provider "aws" {

@@ -7,6 +7,7 @@ For example, if you are a Managed Services Provider, your organization may need 
 
 The following example demonstrates how to use the CDO Terraform provider to rapidly stand up a new CDO tenant.
 
+
 ## Pre-requisites
 
 To use this example, you need the following:
@@ -14,10 +15,30 @@ To use this example, you need the following:
 1. Terraform: This example uses v1.3.
 1. Super-admin access to a CDO tenant.
 1. An AWS account to automatically spin up an virtual form-factor Adaptive Security Appliance (ASAv) and a Secure Device Connector (SDC). 
-  1. The credentials used should allow you permissions to create VPCs, subnets, route tables, network interfaces, and EC2 instances.
-  1. 
-1. [Optional] A vSphere administrative account to automatically spin up an SDC on your vSphere:
-  1. The account used has to have administrative access 
+  1. If you have never subscribed to the Cisco Secure Firewall Threat Defense Virtual or Firewall Management Center Virtual, follow these links and subscribe to both these products in the AWS Marketplace:
+    1. [Cisco Secure Firewall ASA Virtual - BYOL](https://aws.amazon.com/marketplace/pp/prodview-sltshxd3bzqbg)
+    1. [Cisco Secure Firewall Threat Defense Virtual - BYOL](https://aws.amazon.com/marketplace/pp/prodview-p2336sqyya34e)
+  1. The credentials used should allow you permissions to create VPCs, subnets, route tables, network interfaces, and EC2 instances. 
+
+### [Optional] Creating Resources in vSphere
+> :warning: To run this code, you will need to check out this repository to your local computer. The rest of this learning lab can be run in the Devnet learning lab environment.
+
+> :warning: The vSphere account used has to have administrative access to create a VM, content libraries and content library items, read datacenters, hosts, networks, compute resource pools, and datastores.
+
+To create resources in vSphere, you need a vSphere administrative account to automatically spin up an SDC on your vSphere, and the code checked out to an environment that has access to your vSphere server. You then need to:
+- Set the variables in the `vSphere` section of your `terraform.tfvars` file (see Step 3).
+- Uncomment this code block in `provider.tf`:
+```
+ provider "vsphere" {
+   user           = var.vsphere_username
+   password       = var.vsphere_password
+   vsphere_server = var.vsphere_server
+
+   # if you have a self-signed cert
+   allow_unverified_ssl = true
+ }
+```
+- Uncomment all of `06-sdc-vsphere.tf`.
 
 Then, you can clone the example repository from the [CDO Devnet repository](https://github.com/ciscodevnet/terraform-provider-cdo) using Git, and then change your working directory to `examples/complete`.
 

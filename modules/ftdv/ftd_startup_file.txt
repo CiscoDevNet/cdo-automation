@@ -1,0 +1,10 @@
+  {
+      "Hostname":       "${ftd_hostname}",
+      "ManageLocally":  "No",
+      %{ if ${fmc_reg_key} != "" }
+      "FmcRegKey": "${fmc_reg_key}",
+      %{ endif }
+      %{ if ${fmc_nat_id} != "" }
+      "FmcNatId": "${fmc_nat_id}",
+      %{ endif }
+  }

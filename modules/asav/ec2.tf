@@ -18,4 +18,8 @@ resource "aws_instance" "asav" {
     device_index         = 2
   }
   user_data = data.template_file.asav_startup_config.rendered
+
+  lifecycle {
+    ignore_changes = [ami]
+  }
 }

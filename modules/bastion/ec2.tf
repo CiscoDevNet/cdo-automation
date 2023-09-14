@@ -11,4 +11,7 @@ resource "aws_instance" "bastion" {
     instanceType : "bastion",
     Service : "lab"
   }
+  lifecycle {
+    ignore_changes = [ami]
+  }
 }
