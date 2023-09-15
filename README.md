@@ -38,7 +38,7 @@ To create resources in vSphere, you need a vSphere administrative account to aut
    allow_unverified_ssl = true
  }
 ```
-- Uncomment all of `06-sdc-vsphere.tf`.
+- Uncomment all of `07-sdc-vsphere.tf`.
 
 Then, you can clone the example repository from the [CDO Devnet repository](https://github.com/ciscodevnet/terraform-provider-cdo) using Git, and then change your working directory to `examples/complete`.
 
@@ -111,7 +111,6 @@ The Terraform code creates a list of users that can use your CDO tenant. You can
 
 ### A Secure Device Connector in AWS
 
-
 The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses the [AWS cdo-sdc](https://registry.terraform.io/modules/CiscoDevNet/cdo-sdc/aws/latest) Terraform module to create an SDC instance in the private subnet of the AWS VPC you created, and initialize it using the bootstrap data for the created SDC. Once this part of the code runs, you can verify this in CDO as follows:
  1. Log into your tenant in CDO using a web browser.
  1. Click on your username on the top right-hand corner of the CDO UI, and click **Secure Connectors**.
@@ -135,3 +134,23 @@ The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses 
 We create ASA and SDC resources in CDO.
 - The SDC resource in CDO is created before the SDC in AWS is created, and SDC in AWS receives the CDO bootstrap data from the SDC resource created. Important note: the bootstrap data is valid only for an hour after creation, so make sure you spin up  your SDC in AWS within an hour after creating the CDO resource.
 - The ASA resource in CDO is created after the ASA in CDO is spun up.
+
+ ### A virtual FTD in AWS
+
+ The code uses the `ftdv` module in `modules/ftdv` to create an FTDv in your AWS VPC. The ASAv deployed has three interfaces:
+ -  An inside interface, in the private subnet.
+ - An outside interface, in the public subnet.
+ - A management interface, in the private subnet.
+
+ Deploying this FTDv can take up to 20 minutes, so please be patient.
+
+ It then uses the CDO terraform provider to onboard this deployed FTD to CDO.
+
+### [Optional] A Secure Device Connector in vSphere
+
+The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses the [vSphere cdo-sdc](https://registry.terraform.io/modules/CiscoDevNet/cdo-sdc/vsphere/latest) Terraform module to create an SDC VM inside your vSphere datacenter, and initialize it using the bootstrap data for the created SDC. Once this part of the code runs, you can verify this in CDO as follows:
+ 1. Log into your tenant in CDO using a web browser.
+ 1. Click on your username on the top right-hand corner of the CDO UI, and click **Secure Connectors**.
+ ![Secure Connectors Menu Item](./images/secure-connectors-menu-item.png "Secure Connectors Menu")
+ 1. You should see an SDC called `sdc-in-vsphere` with the status set to **Active**.
+ ![Secure Connectors](./images/secure-connector-vsphere.png "Secure Connectors")

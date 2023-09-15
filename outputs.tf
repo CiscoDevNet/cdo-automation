@@ -15,3 +15,14 @@ output "asa_01_mgmt_interface_ip" {
   description = "IP of the management interface of example asa-01"
   value       = module.terraform-managed-asav-01.mgmt_interface_ip
 }
+
+output "ftd_01_password" {
+  description = "The value of the password for the admin user for the FTD ftd-01."
+  value       = random_password.ftd_01_password.result
+  sensitive   = true
+}
+
+output "ftd_01_mgmt_dns" {
+  description = "The management interface DNS for the FTD ftd-01."
+  value       = module.terraform_managed_ftdv_01.mgmt_intf_dns_name
+}

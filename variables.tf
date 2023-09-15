@@ -123,3 +123,9 @@ variable "root_user_password" {
   sensitive   = true
   default     = ""
 }
+
+# FTD
+variable "ftd_01_hostname" {
+  description = "Specify the hostname of your ASAv on AWS."
+  type        = string
+}

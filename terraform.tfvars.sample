@@ -28,3 +28,6 @@ gateway = "<replace-with-network-gateway-address>"
 cdo_tenant_name = "<replace-with-name-of-cdo-tenant>"
 cdo_user_password = "<replace-with-password-for-cdo-user-in-sdc-vm>"
 root_user_password = "<replace-with-password-for-root-user-in-sdc-vm>"
+
+# FTD
+ftd_01_hostname = "<replace-with-name-of-ftd>

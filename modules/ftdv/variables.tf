@@ -48,15 +48,23 @@ variable "ftd_hostname" {
   default     = "FTD-01"
 }
 
+variable "ftd_admin_password" {
+  description = "Admin Password for the FTD."
+  type        = string
+}
+
 variable "fmc_reg_key" {
   description = "The registration key shared by the FMC."
-  type = string
-  default = ""
+  type        = string
 }
 variable "fmc_nat_id" {
   description = "The NAT ID shared by the FMC. The NAT ID is a one-time password used only during registration."
-  type = string
-  default = ""
+  type        = string
+}
+
+variable "fmc_hostname" {
+  description = "The FMC hostname to connect to."
+  type        = string
 }
 
 variable "bastion_public_ip" {

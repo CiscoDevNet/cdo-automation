@@ -1,17 +1,4 @@
-resource "null_resource" "wait_for_ftdv_instance_to_be_ready" {
-  # If an IP changes, these scripts will run again
-  triggers = {
-    nodes_ips = aws_instance.asav.private_ip
-  }
-
-  provisioner "local-exec" {
-    command = "aws ec2 wait instance-status-ok --instance-ids ${aws_instance.ftdv.id} --region ${var.aws_region}"
-  }
-}
-
-
 resource "null_resource" "wait_for_ftdv_to_finish_booting" {
-  depends_on = [null_resource.wait_for_ftdv_instance_to_be_ready]
   # If an IP changes, these scripts will run again
   triggers = {
     nodes_ips = aws_network_interface.ftd_mgmt[0].private_ip

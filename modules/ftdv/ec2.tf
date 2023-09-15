@@ -4,7 +4,6 @@ resource "aws_instance" "ftdv" {
   key_name      = aws_key_pair.rsa_keypair.id
   metadata_options {
     http_endpoint = "enabled"
-    http_tokens   = "required"
   }
   root_block_device {
     encrypted = true
