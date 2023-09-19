@@ -35,5 +35,6 @@ module "terraform_managed_ftdv_01" {
 }
 
 resource "cdo_ftd_device_onboarding" "example_ftd_01" {
-  ftd_uid = cdo_ftd_device.example_ftd_01.id
+  depends_on = [module.terraform_managed_ftdv_01]
+  ftd_uid    = cdo_ftd_device.example_ftd_01.id
 }

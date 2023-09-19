@@ -11,23 +11,6 @@ asa_01_username        = "<replace-with-asa-username>"
 asa_01_password        = "<replace-with-asa-password; no repeating or consecutive characters>"
 asa_01_enable_password = "<replace-with-asa-password; no repeating or consecutive characters>"
 
-# vSphere
-## Connection Configuration
-vsphere_server = "<replace-with-address-of-vsphere-server>"
-vsphere_username = "<replace-with-username-with-admin-privileges>"
-vsphere_password = "<super-secure-password>"
-datacenter = "<replace-with-datacenter-name>"
-resource_pool = "<replace-with-resource-pool-name>"
-host = "<replace-with-esxi-host-address>"
-datastore = "<replace-with-name-of-datastore-to-deploy-vm-in>"
-network = "<replace-with-name-of-network-to-deploy-vm-in>"
-allow_unverified_ssl = "<boolean; set to true if your vsphere server does not have a valid SSL certificate>"
-## VM Configuration
-ip_address = "<sdc-vm-ip-address; must be in the subnet of the assigned network for the VM>"
-gateway = "<replace-with-network-gateway-address>"
-cdo_tenant_name = "<replace-with-name-of-cdo-tenant>"
-cdo_user_password = "<replace-with-password-for-cdo-user-in-sdc-vm>"
-root_user_password = "<replace-with-password-for-root-user-in-sdc-vm>"
 
 # FTD
 ftd_01_hostname = "<replace-with-name-of-ftd>
