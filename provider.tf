@@ -2,7 +2,7 @@ terraform {
   required_providers {
     cdo = {
       source  = "CiscoDevnet/cdo"
-      version = "0.6.1"
+      version = "0.7.0"
     }
 
     # OPTIONAL: comment this out if you do not want to use Terraform to spin up an SDC in vSphere
