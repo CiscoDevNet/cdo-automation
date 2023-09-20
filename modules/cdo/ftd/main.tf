@@ -1,7 +1,7 @@
 data "aws_region" "current" {}
 
 resource "fmc_access_policies" "fmc_access_policy" {
-  name           = "${var.ftd_hostname}-Terraform Access Policy"
+  name           = "${var.ftd_name}-Terraform Access Policy"
   default_action = "block"
 }
 
