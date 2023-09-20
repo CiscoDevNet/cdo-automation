@@ -27,7 +27,7 @@ resource "cdo_asa_device" "example-asa-01" {
   socket_address = "${module.terraform-managed-asav-01.mgmt_interface_ip}:443"
 
   connector_type = "SDC"
-  connector_name = cdo_sdc.sdc-in-aws.name
+  connector_name = module.sdc_aws.sdc_name
 
   ignore_certificate = true
 
