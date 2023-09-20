@@ -7,6 +7,8 @@ For example, if you are a Managed Services Provider, your organization may need 
 
 The following example demonstrates how to use the CDO Terraform provider to rapidly stand up a new CDO tenant.
 
+> :warning: **Note**: See the README.md in the `vsphere` directory to create an SDC in vSphere using Terraform.
+
 
 ## Pre-requisites
 
@@ -19,34 +21,6 @@ To use this example, you need the following:
     1. [Cisco Secure Firewall ASA Virtual - BYOL](https://aws.amazon.com/marketplace/pp/prodview-sltshxd3bzqbg)
     1. [Cisco Secure Firewall Threat Defense Virtual - BYOL](https://aws.amazon.com/marketplace/pp/prodview-p2336sqyya34e)
   1. The credentials used should allow you permissions to create VPCs, subnets, route tables, network interfaces, and EC2 instances. 
-
-### [Optional] Creating Resources in vSphere
-> :warning: To run this code, you will need to check out this repository to your local computer. The rest of this learning lab can be run in the Devnet learning lab environment.
-
-> :warning: The vSphere account used has to have administrative access to create a VM, content libraries and content library items, read datacenters, hosts, networks, compute resource pools, and datastores.
-
-To create resources in vSphere, you need a vSphere administrative account to automatically spin up an SDC on your vSphere, and the code checked out to an environment that has access to your vSphere server. You then need to:
-- Set the variables in the `vSphere` section of your `terraform.tfvars` file (see Step 3).
-- Uncomment this code block in `provider.tf`:
-```
- provider "vsphere" {
-   user           = var.vsphere_username
-   password       = var.vsphere_password
-   vsphere_server = var.vsphere_server
-
-   # if you have a self-signed cert
-   allow_unverified_ssl = true
- }
-```
-- Uncomment all of `07-sdc-vsphere.tf`.
-
-Then, you can clone the example repository from the [CDO Devnet repository](https://github.com/ciscodevnet/terraform-provider-cdo) using Git, and then change your working directory to `examples/complete`.
-
-```
-git clone https://github.com/ciscodevnet/terraform-provider-cdo
-cd terraform-provider-cdo/examples/complete
-```
-
 
 ## Step 1: Create an API Only user with Super-Admin Role
 
@@ -64,9 +38,7 @@ In order to be able to use the CDO Terraform Provider, you need to set a bunch o
 ```
 cp terraform.tfvars.sample terraform.tfvars
 ```
-- Edit `terraform.tfvars` and set the values as appropriate. There are two sections in `terraform.tfvars`:
-  - The `CDO` section, where you set the CDO Base URL and API token so that the Terraform can communicate with CDO.
-  - The `AWS` section; set the values in this section if you want the example code to create resources (an ASAv and an SDC) in AWS.
+- Edit `terraform.tfvars` and set the values as appropriate.
 
 ## Step 4: Run Terraform
 
@@ -89,8 +61,6 @@ To destroy all of the resources created by this Terraform provider, run:
 ```
 terraform destroy
 ```
-
-
 ## Resources Created: An Explainer
 
 ### An AWS VPC with two subnets
@@ -145,12 +115,3 @@ We create ASA and SDC resources in CDO.
  Deploying this FTDv can take up to 20 minutes, so please be patient.
 
  It then uses the CDO terraform provider to onboard this deployed FTD to CDO.
-
-### [Optional] A Secure Device Connector in vSphere
-
-The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses the [vSphere cdo-sdc](https://registry.terraform.io/modules/CiscoDevNet/cdo-sdc/vsphere/latest) Terraform module to create an SDC VM inside your vSphere datacenter, and initialize it using the bootstrap data for the created SDC. Once this part of the code runs, you can verify this in CDO as follows:
- 1. Log into your tenant in CDO using a web browser.
- 1. Click on your username on the top right-hand corner of the CDO UI, and click **Secure Connectors**.
- ![Secure Connectors Menu Item](./images/secure-connectors-menu-item.png "Secure Connectors Menu")
- 1. You should see an SDC called `sdc-in-vsphere` with the status set to **Active**.
- ![Secure Connectors](./images/secure-connector-vsphere.png "Secure Connectors")

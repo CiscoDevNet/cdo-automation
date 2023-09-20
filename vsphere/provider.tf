@@ -5,13 +5,6 @@ terraform {
       version = "0.6.1"
     }
 
-    # OPTIONAL: comment this out if you do not want to use Terraform to spin up an SDC in vSphere
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.66.1"
-    }
-
-    # OPTIONAL: comment this out if you do not want to use Terraform to spin up an SDC and ASAv in AWS
     vsphere = {
       source  = "hashicorp/vsphere"
       version = "2.4.2"
