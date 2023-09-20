@@ -7,3 +7,4 @@ terraform.tstate*
 terraform.tstate.*
 terraform.tfstate.*.backup
 *.out
+**/.terraform.tfstate.lock.info
