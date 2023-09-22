@@ -1,5 +1,9 @@
 data "aws_region" "current" {}
 
+locals {
+    asa_port = 443
+}
+
 # create ASAv in private subnet
 module "terraform-managed-asav-01" {
   source              = "../../asav"
@@ -7,7 +11,7 @@ module "terraform-managed-asav-01" {
   vpc_id              = var.vpc_id
   public_subnets      = [var.public_subnet_id]
   private_subnets     = [var.private_subnet_id]
-  asa_hostname        = "example-asa-01"
+  asa_hostname        = var.asa_hostname
   bastion_sg          = var.bastion_sg
   asa_username        = var.asa_username
   asa_password        = var.asa_password
@@ -24,7 +28,7 @@ resource "cdo_asa_device" "example-asa-01" {
   name           = var.asa_hostname
   username       = var.asa_username
   password       = var.asa_password
-  socket_address = "${module.terraform-managed-asav-01.mgmt_interface_ip}:443"
+  socket_address = "${module.terraform-managed-asav-01.mgmt_interface_ip}:${local.asa_port}"
 
   connector_type = "SDC"
   connector_name = var.sdc_name

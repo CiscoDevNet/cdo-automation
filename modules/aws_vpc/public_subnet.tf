@@ -2,7 +2,7 @@ resource "aws_internet_gateway" "gateway" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name : "cdo-provider-example-igw"
+    Name : "${local.vpc_resource_prefix}-igw"
   }
 }
 
@@ -10,7 +10,7 @@ resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name : "cdo-provider-example-public-route-table"
+    Name : "${local.vpc_resource_prefix}-public-route-table"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = data.aws_availability_zones.all.names[0]
 
   tags = {
-    Name : "cdo-provider-example-public-subnet"
+    Name : "${local.vpc_resource_prefix}-public-subnet"
   }
 }
 
@@ -58,7 +58,7 @@ resource "aws_network_acl" "public_network_acl" {
   }
 
   tags = {
-    Name : "cdo-provider-example-public-network-acl"
+    Name : "${local.vpc_resource_prefix}-public-network-acl"
   }
 }
 

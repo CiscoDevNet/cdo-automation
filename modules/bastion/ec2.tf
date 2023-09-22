@@ -7,7 +7,7 @@ resource "aws_instance" "bastion" {
   key_name                    = aws_key_pair.rsa_keypair.id
   tags = {
     Name : "cdo-provider-example-bastion",
-    instanceType : "bastion",
+    InstanceType : "bastion",
     Service : "lab"
   }
   lifecycle {

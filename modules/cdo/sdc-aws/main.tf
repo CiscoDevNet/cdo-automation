@@ -6,7 +6,7 @@ resource "cdo_sdc" "sdc-in-aws" {
 # Create SDC instance in the private subnet of the AWS VPC. Disable this by setting `var.create_resources_in_aws` to false.
 module "sdc-instance-in-aws" {
   source             = "CiscoDevNet/cdo-sdc/aws"
-  version            = "0.0.1"
+  version            = "0.0.2"
   cdo_bootstrap_data = cdo_sdc.sdc-in-aws.bootstrap_data # Get the bootstrap data from CDO and pass it to the AWS instance.
   instance_name      = "cdo-provider-example-sdc-in-aws"
   # Deploy the instance in the private subnet of the VPC you created.
