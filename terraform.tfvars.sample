@@ -2,7 +2,7 @@
 aws_region = "<specify-aws-region-where-you-want-to-create-resources>"
 
 # CDO
-cdo_base_url = "<https://www.defenseorchestrator.com|https://www.defenseorchestrator.eu|https://apj.cdo.cisco.com"
+cdo_base_url = "<https://www.defenseorchestrator.com|https://www.defenseorchestrator.eu|https://apj.cdo.cisco.com>"
 cdo_api_token = "<replace-with-api-token-for-your-tenant>"
 
 # ASA
@@ -13,4 +13,4 @@ asa_01_enable_password = "<replace-with-asa-password; no repeating or consecutiv
 
 
 # FTD
-ftd_01_hostname = "<replace-with-name-of-ftd>
+ftd_01_hostname = "<replace-with-name-of-ftd>"
