@@ -33,15 +33,15 @@ variable "asav_instance_size" {
 }
 
 variable "asa_hostname" {
-  default     = "asa-01"
-  type        = string
   description = "The hostname of the ASA."
+  type        = string
+  default     = "asa-01"
 }
 
 variable "ssh_key_name" {
   description = "The key to use on the ASAv for SSH."
-  type        = string
   default     = "lh-localdev-server"
+  type        = string
 }
 
 variable "bastion_sg" {

@@ -5,10 +5,12 @@ resource "aws_instance" "bastion" {
   subnet_id                   = var.subnet_id
   associate_public_ip_address = true
   key_name                    = aws_key_pair.rsa_keypair.id
-  iam_instance_profile        = aws_iam_instance_profile.lab-iam-profile.id
   tags = {
     Name : "cdo-provider-example-bastion",
-    instanceType : "bastion",
+    InstanceType : "bastion",
     Service : "lab"
+  }
+  lifecycle {
+    ignore_changes = [ami]
   }
 }

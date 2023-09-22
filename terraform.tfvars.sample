@@ -10,3 +10,7 @@ asa_01_hostname = "<replace-with-name-of-asa>"
 asa_01_username        = "<replace-with-asa-username>"
 asa_01_password        = "<replace-with-asa-password; no repeating or consecutive characters>"
 asa_01_enable_password = "<replace-with-asa-password; no repeating or consecutive characters>"
+
+
+# FTD
+ftd_01_hostname = "<replace-with-name-of-ftd>

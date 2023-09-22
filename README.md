@@ -7,6 +7,9 @@ For example, if you are a Managed Services Provider, your organization may need 
 
 The following example demonstrates how to use the CDO Terraform provider to rapidly stand up a new CDO tenant.
 
+> :warning: **Note**: See the README.md in the `vsphere` directory to create an SDC in vSphere using Terraform.
+
+
 ## Pre-requisites
 
 To use this example, you need the following:
@@ -14,14 +17,10 @@ To use this example, you need the following:
 1. Terraform: This example uses v1.3.
 1. Super-admin access to a CDO tenant.
 1. An AWS account to automatically spin up an virtual form-factor Adaptive Security Appliance (ASAv) and a Secure Device Connector (SDC). 
-
-Then, you can clone the example repository from the [CDO Devnet repository](https://github.com/ciscodevnet/terraform-provider-cdo) using Git, and then change your working directory to `examples/complete`.
-
-```
-git clone https://github.com/ciscodevnet/terraform-provider-cdo
-cd terraform-provider-cdo/examples/complete
-```
-
+  1. If you have never subscribed to the Cisco Secure Firewall Threat Defense Virtual or Firewall Management Center Virtual, follow these links and subscribe to both these products in the AWS Marketplace:
+    1. [Cisco Secure Firewall ASA Virtual - BYOL](https://aws.amazon.com/marketplace/pp/prodview-sltshxd3bzqbg)
+    1. [Cisco Secure Firewall Threat Defense Virtual - BYOL](https://aws.amazon.com/marketplace/pp/prodview-p2336sqyya34e)
+  1. The credentials used should allow you permissions to create VPCs, subnets, route tables, network interfaces, and EC2 instances. 
 
 ## Step 1: Create an API Only user with Super-Admin Role
 
@@ -39,9 +38,7 @@ In order to be able to use the CDO Terraform Provider, you need to set a bunch o
 ```
 cp terraform.tfvars.sample terraform.tfvars
 ```
-- Edit `terraform.tfvars` and set the values as appropriate. There are two sections in `terraform.tfvars`:
-  - The `CDO` section, where you set the CDO Base URL and API token so that the Terraform can communicate with CDO.
-  - The `AWS` section; set the values in this section if you want the example code to create resources (an ASAv and an SDC) in AWS.
+- Edit `terraform.tfvars` and set the values as appropriate.
 
 ## Step 4: Run Terraform
 
@@ -64,8 +61,6 @@ To destroy all of the resources created by this Terraform provider, run:
 ```
 terraform destroy
 ```
-
-
 ## Resources Created: An Explainer
 
 ### An AWS VPC with two subnets
@@ -85,7 +80,6 @@ The Terraform code creates a list of users that can use your CDO tenant. You can
 ![User List](./images/users.png "List of Users")
 
 ### A Secure Device Connector in AWS
-
 
 The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses the [AWS cdo-sdc](https://registry.terraform.io/modules/CiscoDevNet/cdo-sdc/aws/latest) Terraform module to create an SDC instance in the private subnet of the AWS VPC you created, and initialize it using the bootstrap data for the created SDC. Once this part of the code runs, you can verify this in CDO as follows:
  1. Log into your tenant in CDO using a web browser.
@@ -110,3 +104,14 @@ The code uses the CDO Terraform Provider to create an SDC in CDO, and then uses 
 We create ASA and SDC resources in CDO.
 - The SDC resource in CDO is created before the SDC in AWS is created, and SDC in AWS receives the CDO bootstrap data from the SDC resource created. Important note: the bootstrap data is valid only for an hour after creation, so make sure you spin up  your SDC in AWS within an hour after creating the CDO resource.
 - The ASA resource in CDO is created after the ASA in CDO is spun up.
+
+ ### A virtual FTD in AWS
+
+ The code uses the `ftdv` module in `modules/ftdv` to create an FTDv in your AWS VPC. The ASAv deployed has three interfaces:
+ -  An inside interface, in the private subnet.
+ - An outside interface, in the public subnet.
+ - A management interface, in the private subnet.
+
+ Deploying this FTDv can take up to 20 minutes, so please be patient.
+
+ It then uses the CDO terraform provider to onboard this deployed FTD to CDO.
