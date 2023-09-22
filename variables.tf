@@ -3,7 +3,7 @@ variable "cdo_base_url" {
   description = "Specify the base CDO URL. This is the URL you enter when logging into your CDO account."
   validation {
     condition     = contains(["https://www.defenseorchestrator.com", "https://www.defenseorchestrator.eu", "https://apj.cdo.cisco.com"], var.cdo_base_url)
-    error_message = "Specify a valid CDO URL"
+    error_message = "Specify a valid CDO URL."
   }
   type = string
 }
